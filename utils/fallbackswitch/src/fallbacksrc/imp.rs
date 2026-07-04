@@ -3454,6 +3454,7 @@ impl FallbackSrc {
                 .find(|s| s.main_id.is_none() && s.gst_stream.stream_type() == stream.stream_type())
             {
                 suitable_stream.main_id = Some(stream.stream_id().unwrap());
+                suitable_stream.gst_stream.set_tags(stream.tags().as_ref());
 
                 gst::debug!(
                     CAT,
@@ -3471,6 +3472,7 @@ impl FallbackSrc {
                 let mut new_stream =
                     self.create_stream(state, stream.stream_type(), stream_caps, false);
                 new_stream.main_id = Some(stream.stream_id().unwrap());
+                new_stream.gst_stream.set_tags(stream.tags().as_ref());
 
                 gst::debug!(
                     CAT,
